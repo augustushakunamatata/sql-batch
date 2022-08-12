@@ -1,0 +1,161 @@
+microsoft sql 2022 test
+
+Theroy
+
+1)local and global temporary tables
+local: local table are a table that are within the local or inside within the special table 
+gobal:there are gobally used in the sql table and there are use gobally in the server
+
+
+3)trigger:
+whenever the button is click the acting is accured or preformed 
+ex when the user click the button the trigger is performed
+
+5)commit and roll back:
+commit:commit is used to save the table in sql server
+rollback:undo the insert query in the sql
+
+7)joins are used to join or merge two table this known as join
+        type of joins
+	#inner join
+	#left join
+	#right join
+	#cross join
+	#full join
+	#self join
+10)cluster indexes:it is sequencelly order the index and get the data in sql fastly.it is order the index in the table 
+
+11)How can you relate a Foreign Key and a Primary Key?
+foreign key : foreign key is used in more than one table.it can be act as column name of another table
+primary key: primary key is unique key of the table its does not have duplicate value 
+with help of primary key we can create a child of the parent table with help of foreign key
+
+4)	What is an IDENTITY column in insert statements?
+insert command is used to insert value in the sql database
+ex insert into table name values(1,'gdhfd',bca') 
+
+9)⦁	What is the difference between Stored Procedures and Functions?
+
+stored procedured is used to stord the procedure line by by in the transcation in sql
+function: it is a inbuilt function to performed some calucation in sql database
+
+2)⦁	What is CHECK constraint?
+check constraint are check whether the table in sql contain constraints
+
+
+6) ⦁	What is Filtered Index?
+it is used to filter the index in the table based on filter 
+ex ascending or deacending
+
+
+create database org1;
+
+
+CREATE TABLE Worker (
+WORKER_ID VARCHAR(10) NOT NULL PRIMARY KEY,
+FIRST_NAME CHAR(25),
+LAST_NAME CHAR(25),
+SALARY VARCHAR(15),
+JOINING_DATE DATETIME,
+DEPARTMENT CHAR(25),
+)
+INSERT INTO Worker VALUES(001, 'Monika', 'Arora', 100000, '05-08-2020 16:08:00', 'HR')
+
+INSERT INTO Worker VALUES(002, 'Niharika', 'Verma', 80000, '05-08-2020 16:08:00', 'Admin')
+INSERT INTO Worker VALUES(003, 'Vishal', 'Singhal', 300000, '05-08-2020 16:08:00', 'HR')
+INSERT INTO Worker VALUES(004, 'Amitabh', 'Singh', 500000, '05-08-2020 16:08:00', 'Admin')
+INSERT INTO Worker VALUES(005, 'Vivek', 'Bhati', 500000, '05-08-2020 16:08:00', 'Admin')
+INSERT INTO Worker VALUES(006, 'Vipul', 'Diwan', 200000, '05-08-2020 16:08:00', 'Account')
+INSERT INTO Worker VALUES(007, 'Satish', 'Kumar', 75000, '05-08-2020 16:08:00', 'Account')
+INSERT INTO Worker VALUES(008, 'Geetika', 'Chauhan', 90000, '05-08-2020 16:08:00', 'Admin')
+SELECT * FROM Worker
+
+
+
+
+CREATE TABLE Bonus (
+	WORKER_REF_ID INT,
+	BONUS_AMOUNT INT(10),
+	BONUS_DATE DATETIME,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Bonus 
+	(WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+		(001, 5000, '16-02-20'),
+		(002, 3000, '16-06-11'),
+		(003, 4000, '16-02-20'),
+		(001, 4500, '16-02-20'),
+		(002, 3500, '16-06-11');
+CREATE TABLE Title (
+	WORKER_REF_ID INT,
+	WORKER_TITLE CHAR(25),
+	AFFECTED_FROM DATETIME,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES Worker(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Title 
+	(WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+ (001, 'Manager', '2016-02-20 00:00:00'),
+ (002, 'Executive', '2016-06-11 00:00:00'),
+ (008, 'Executive', '2016-06-11 00:00:00'),
+ (005, 'Manager', '2016-06-11 00:00:00'),
+ (004, 'Asst. Manager', '2016-06-11 00:00:00'),
+ (007, 'Executive', '2016-06-11 00:00:00'),
+ (006, 'Lead', '2016-06-11 00:00:00'),
+ (003, 'Lead', '2016-06-11 00:00:00');
+
+
+select * from title
+
+
+					ANSWER
+
+
+select CONCAT(FIRST_NAME,LAST_NAME)AS 'COMPLETE_NAME' FROM WORKER ----(question 2)
+
+
+select * from Worker where Salary between 100000 and 500000--------(question 4)
+
+
+select * into worker_clone from Worker-------(question 1)
+select * from worker order by department desc(----question 5)
+
+insert into  students1 values(1'hero pen',salary)---(question 10)
+create trigger trg_dml
+on Worker
+FOR INSERT               
+as
+begin
+	print 
+	rollback transaction 
+end
+commit transaction
+
+select * from Worker orderby FIRST_NAME -------(question 3)
+
+create trigger trg_update----------(question 6)
+on title
+for update
+as 
+begin 
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
